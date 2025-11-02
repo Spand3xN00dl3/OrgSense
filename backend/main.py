@@ -1,10 +1,19 @@
 from fastapi import FastAPI, Body
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import json
 from models.event_model import Event, EventInfo
 import uuid
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],   # GET, POST, PUT, DELETE, etc
+    allow_headers=["*"],   # Authorization, Content-Type, etc
+)
 
 @app.get("/")
 def root():
